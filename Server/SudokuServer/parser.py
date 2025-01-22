@@ -6,7 +6,10 @@ def main():
     url = 'data/sample1.png'
     im = cv2.imread(url, cv2.IMREAD_GRAYSCALE)
     cells = extract_cells(im, 50)
-    show_cells(cells, 50, 10)
+    # show_cells(cells, 50, 10)
+
+    for i, cell in enumerate(cells):
+        cv2.imwrite(f'output/Cell {i}.png', cell)
 
 
 def show(im, max_size=500, title='Show'):
