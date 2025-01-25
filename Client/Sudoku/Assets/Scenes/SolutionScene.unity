@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 2085415409}
   - component: {fileID: 2085415410}
   m_Layer: 5
-  m_Name: Grid
+  m_Name: SudokuGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

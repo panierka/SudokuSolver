@@ -1,9 +1,8 @@
-using Mono.Cecil.Cil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class SudokuGrid : MonoBehaviour
 {
     public int columns = 0;
     public int rows = 0;
