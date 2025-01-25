@@ -23,7 +23,7 @@ namespace Assets.Scripts.Controllers
         private UnityEvent<SudokuSolutionModel> onSolutionReceived;
 
         [SerializeField]
-        private UnityEvent onTextureSent;
+        private UnityEvent<Texture2D> onTextureSent;
 
         public void SendTexture()
         {
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Controllers
                     pngData, url, FireEvent, err => Debug.LogError(err))
             );
 
-            onTextureSent?.Invoke();
+            onTextureSent?.Invoke(texture2D);
         }
 
         private void FireEvent(SudokuSolutionModel model)
