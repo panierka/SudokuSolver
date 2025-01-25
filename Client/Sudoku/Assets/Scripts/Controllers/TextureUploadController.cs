@@ -22,6 +22,9 @@ namespace Assets.Scripts.Controllers
         [SerializeField]
         private UnityEvent<SudokuSolutionModel> onSolutionReceived;
 
+        [SerializeField]
+        private UnityEvent onTextureSent;
+
         public void SendTexture()
         {
             var texture = textureSource.texture;
@@ -45,6 +48,8 @@ namespace Assets.Scripts.Controllers
                 .SendFileToServer<SudokuSolutionModel>(
                     pngData, url, FireEvent, err => Debug.LogError(err))
             );
+
+            onTextureSent?.Invoke();
         }
 
         private void FireEvent(SudokuSolutionModel model)
