@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using Assets.Scripts.Utils;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,9 +49,12 @@ public class SudokuGrid : MonoBehaviour
         };
 
 
-        var m = Array2dUtils.FromList(t);
+        var solution = AppFlowDao.Instance.CurrentSudokuSolution;
+
+        var mInitial = Array2dUtils.FromList(solution.InitialBoardState);
+        var mSolved = Array2dUtils.FromList(solution.SolvedBoardState);
              
-        SetGridNumber(m, m);
+        SetGridNumber(mInitial, mSolved);
 	}
 
 
