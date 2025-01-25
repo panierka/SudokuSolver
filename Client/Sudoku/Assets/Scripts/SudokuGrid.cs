@@ -49,12 +49,16 @@ public class SudokuGrid : MonoBehaviour
         };
 
 
-        var solution = AppFlowDao.Instance.CurrentSudokuSolution;
+		var solution = AppFlowDao.Instance.CurrentSudokuSolution;
 
-        var mInitial = Array2dUtils.FromList(solution.InitialBoardState);
-        var mSolved = Array2dUtils.FromList(solution.SolvedBoardState);
-             
-        SetGridNumber(mInitial, mSolved);
+		var mInitial = Array2dUtils.FromList(solution.InitialBoardState);
+		var mSolved = Array2dUtils.FromList(solution.SolvedBoardState);
+
+        // Testing display with static numbers
+		//var mInitial = Array2dUtils.FromList(t);
+		//var mSolved = Array2dUtils.FromList(t);
+
+		SetGridNumber(mInitial, mSolved);
 	}
 
 
@@ -114,7 +118,7 @@ public class SudokuGrid : MonoBehaviour
 			{
 				int reversedRow = 8 - row;
 				index = reversedRow * 9 + col;
-				grid_squares_[index].GetComponent<GridSquare>().SetNumber(solutionMatrix[row, col]);
+				grid_squares_[index].GetComponent<GridSquare>().SetNumber(solutionMatrix[col, row]);
 			}
 		}
 
