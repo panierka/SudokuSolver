@@ -33,6 +33,9 @@ namespace Assets.Scripts.Camera
 
             var ratio = (float)webCamTexture.width / webCamTexture.height;
             fitter.aspectRatio = ratio;
+
+            var a = -webCamTexture.videoRotationAngle;
+            image.rectTransform.localEulerAngles = new Vector3(0, 0, a);
         }
     }
 }
