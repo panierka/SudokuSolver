@@ -25,6 +25,7 @@ namespace Assets.Scripts.Controllers
         public void SendTexture()
         {
             var texture = textureSource.texture;
+            Debug.Log(texture);
 
             if (texture is not RenderTexture renderTexture)
             {
@@ -38,6 +39,7 @@ namespace Assets.Scripts.Controllers
 
             byte[] pngData = texture2D.EncodeToPNG();
 
+            Debug.Log("sending...");
             var fu = new FileUploader();
             StartCoroutine(fu
                 .SendFileToServer<SudokuSolutionModel>(
