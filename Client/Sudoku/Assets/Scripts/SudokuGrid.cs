@@ -1,3 +1,4 @@
+using Assets.Scripts.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,37 @@ public class SudokuGrid : MonoBehaviour
             Debug.LogError("This Game Object need to have GridSquare script attached");
 
         CreateGrid();
-        SetGridNumber();
+
+        int[,] matrix =
+        {
+            {5, 3, 0, 0, 7, 0, 0, 0, 0},
+            {6, 0, 0, 1, 9, 5, 0, 0, 0},
+            {0, 9, 8, 0, 0, 0, 0, 6, 0},
+            {8, 0, 0, 0, 6, 0, 0, 0, 3},
+            {4, 0, 0, 8, 0, 3, 0, 0, 1},
+            {7, 0, 0, 0, 2, 0, 0, 0, 6},
+            {0, 6, 0, 0, 0, 0, 2, 8, 0},
+            {0, 0, 0, 4, 1, 9, 0, 0, 5},
+            {0, 0, 0, 0, 8, 0, 0, 7, 9}
+        };
+
+        List<List<int>> t = new() 
+        {
+            new() {5, 3, 0, 0, 7, 0, 0, 0, 0},
+            new() {6, 0, 0, 1, 9, 5, 0, 0, 0},
+            new() {0, 9, 8, 0, 0, 0, 0, 6, 0},
+            new() {8, 0, 0, 0, 6, 0, 0, 0, 3},
+            new() {4, 0, 0, 8, 0, 3, 0, 0, 1},
+            new() {7, 0, 0, 0, 2, 0, 0, 0, 6},
+            new() {0, 6, 0, 0, 0, 0, 2, 8, 0},
+            new() {0, 0, 0, 4, 1, 9, 0, 0, 5},
+            new() {0, 0, 0, 0, 8, 0, 0, 7, 9}
+        };
+
+
+        var m = Array2dUtils.FromList(t);
+             
+        SetGridNumber(m, m);
 	}
 
 
@@ -67,23 +98,10 @@ public class SudokuGrid : MonoBehaviour
         }
 	}
 
-	private void SetGridNumber()//int[,] matrix
+	private void SetGridNumber(int[,] initialMatrix, int[,] solutionMatrix)
 	{
-        int[,] matrix = 
-		{
-		{5, 3, 0, 0, 7, 0, 0, 0, 0},
-		{6, 0, 0, 1, 9, 5, 0, 0, 0},
-		{0, 9, 8, 0, 0, 0, 0, 6, 0},
-		{8, 0, 0, 0, 6, 0, 0, 0, 3},
-		{4, 0, 0, 8, 0, 3, 0, 0, 1},
-		{7, 0, 0, 0, 2, 0, 0, 0, 6},
-		{0, 6, 0, 0, 0, 0, 2, 8, 0},
-		{0, 0, 0, 4, 1, 9, 0, 0, 5},
-		{0, 0, 0, 0, 8, 0, 0, 7, 9}
-		};
-
-		int rows = matrix.GetLength(0);
-		int cols = matrix.GetLength(1);
+		int rows = solutionMatrix.GetLength(0);
+		int cols = solutionMatrix.GetLength(1);
 		int index = 0;
 
 		for (int row = 0; row < 9; row++)
@@ -92,7 +110,7 @@ public class SudokuGrid : MonoBehaviour
 			{
 				int reversedRow = 8 - row;
 				index = reversedRow * 9 + col;
-				grid_squares_[index].GetComponent<GridSquare>().SetNumber(matrix[row, col]);
+				grid_squares_[index].GetComponent<GridSquare>().SetNumber(solutionMatrix[row, col]);
 			}
 		}
 
