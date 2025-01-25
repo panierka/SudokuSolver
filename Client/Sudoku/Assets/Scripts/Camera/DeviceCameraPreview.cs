@@ -31,7 +31,7 @@ namespace Assets.Scripts.Camera
                 return;
             }
 
-            var ratio = (float)webCamTexture.width / webCamTexture.height;
+            var ratio = (float)webCamTexture.height / webCamTexture.width;
             fitter.aspectRatio = ratio;
 
             var a = -webCamTexture.videoRotationAngle;
