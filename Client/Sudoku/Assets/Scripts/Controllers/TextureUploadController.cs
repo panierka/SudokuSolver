@@ -52,21 +52,27 @@ namespace Assets.Scripts.Controllers
 
         private Texture2D Convert(Texture texture)
         {
-            if (texture is Texture2D t2d)
-            {             
-                return t2d;
-            }
-
-            if (texture is RenderTexture renderTexture)
+            switch (texture)
             {
-                Texture2D texture2D = new(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
-                RenderTexture.active = renderTexture;
-                texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-                texture2D.Apply();
-                return texture2D;
-            }
+                case Texture2D texture2:
+                    return texture2;
 
-            return null;
+                case RenderTexture renderTexture:
+                    Texture2D texture2D = new(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
+                    RenderTexture.active = renderTexture;
+                    texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+                    texture2D.Apply();
+                    return texture2D;
+
+                case WebCamTexture webCamTexture:
+                    Texture2D t2d = new(webCamTexture.width, webCamTexture.height, TextureFormat.RGBA32, false);
+                    t2d.SetPixels32(webCamTexture.GetPixels32());
+                    t2d.Apply();
+                    return t2d;
+
+                default:
+                    return null;
+            }
         }
     }
 }
