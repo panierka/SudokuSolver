@@ -13,25 +13,16 @@ namespace Assets.Scripts.Api
     {
         public IEnumerator SendFileToServer<TResponse>(byte[] rawData, string url, Callback<TResponse> callback, Callback<string> fallback)
         {
-            var request = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST);
-            var uploadHandler = new UploadHandlerRaw(rawData)
-            {
-                contentType = "application/octet-stream"
-            };
+            Debug.Log(rawData);
+            var form = new WWWForm();
+            form.AddBinaryData("file", rawData);
 
-            request.uploadHandler = uploadHandler;
-            request.downloadHandler = new DownloadHandlerBuffer();
-
-            request.SetRequestHeader("Content-Type", "application/octet-stream");
-
+            using var request = UnityWebRequest.Post(url, form);
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
                 var responseText = request.downloadHandler.text;
-
-                Debug.Log($"response: {responseText}");
-
                 var responseObject = JsonUtility.FromJson<TResponse>(responseText);
                 callback(responseObject);
             }

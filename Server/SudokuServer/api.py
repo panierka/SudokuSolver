@@ -10,9 +10,13 @@ import parser
 app = FastAPI()
 
 
+class InnerListModel(BaseModel):
+    data: List[int]
+
+
 class SudokuSolutionModel(BaseModel):
-    InitialBoardState: List[List[int]]
-    SolvedBoardState: List[List[int]]
+    initialBoardState: List[InnerListModel]
+    solvedBoardState: List[InnerListModel]
 
 
 @app.post("/upload-sudoku/")
@@ -25,11 +29,11 @@ async def upload_sudoku(file: UploadFile = File(...)):
 
         # ...
 
-        i_placeholder = [[((i + j) % 9) + 1 if (i + 9) % 2 else 0 for j in range(9)] for i in range(9)]
-        s_placeholder = [[((i + j) % 9) + 1 for j in range(9)] for i in range(9)]
+        i_placeholder = [InnerListModel(data=[((i + j) % 9) + 1 if (i + 9) % 2 else 0 for j in range(9)]) for i in range(9)]
+        s_placeholder = [InnerListModel(data=[((i + j) % 9) + 1 for j in range(9)]) for i in range(9)]
         response = SudokuSolutionModel(
-            InitialBoardState=i_placeholder,
-            SolvedBoardState=s_placeholder
+            initialBoardState=i_placeholder,
+            solvedBoardState=s_placeholder
         )
         return response
     except Exception as e:

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Api.Model;
+using Assets.Scripts.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Assets.Scripts.Handlers
         public void TransitionToSolution(SudokuSolutionModel solution)
         {
             AppFlowDao.Instance.CurrentSudokuSolution = solution;
-            StartCoroutine(
+            CoroutineHost.Instance.StartCoroutine(
                 DelayedCall(() => SceneManager.LoadScene("SolutionScene"), 2f)
             );
         }

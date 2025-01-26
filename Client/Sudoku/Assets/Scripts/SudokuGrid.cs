@@ -50,9 +50,12 @@ public class SudokuGrid : MonoBehaviour
 
 
 		var solution = AppFlowDao.Instance.CurrentSudokuSolution;
+        Debug.Log($"solution: {solution}");
+        Debug.Log($"initial: {solution.initialBoardState}");
+        Debug.Log($"solvder: {solution.solvedBoardState}");
 
-		var mInitial = Array2dUtils.FromList(solution.InitialBoardState);
-		var mSolved = Array2dUtils.FromList(solution.SolvedBoardState);
+		var mInitial = Array2dUtils.FromList(solution.initialBoardState);
+		var mSolved = Array2dUtils.FromList(solution.solvedBoardState);
 
         // Testing display with static numbers
 		//var mInitial = Array2dUtils.FromList(t);

@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Api.Model
 {
+    [Serializable]
     public class SudokuSolutionModel
     {
-        public List<List<int>> InitialBoardState { get; set; }
+        public List<InnerList> initialBoardState;
 
-        public List<List<int>> SolvedBoardState { get; set; }
+        public List<InnerList> solvedBoardState;
+    }
+
+    [Serializable]
+    public class InnerList
+    {
+        public List<int> data;
     }
 }
