@@ -42,9 +42,9 @@ async def upload_sudoku(file: UploadFile = File(...)):
             for i in range(dim)
         ]
 
+        initial = [InnerListModel(data=list(row)) for row in matrix]
         solution = solver.solve_sudoku(matrix)
 
-        initial = [InnerListModel(data=row) for row in matrix]
         solved = [InnerListModel(data=row) for row in solution]
 
         response = SudokuSolutionModel(
