@@ -15,12 +15,16 @@ namespace Assets.Scripts.Handlers
     {
         public void TransitionToAwaiting(Texture2D texture)
         {
+            Debug.Log("transition to awaiting");
             AppFlowDao.Instance.CurrentSentTexture = texture;
-            SceneManager.LoadScene("Waiting");
+            CoroutineHost.Instance.StartCoroutine(
+                DelayedCall(() => SceneManager.LoadScene("Waiting"), 0.5f)
+            );
         }
 
         public void TransitionToSolution(SudokuSolutionModel solution)
         {
+            Debug.Log("transition to solution");
             AppFlowDao.Instance.CurrentSudokuSolution = solution;
             CoroutineHost.Instance.StartCoroutine(
                 DelayedCall(() => SceneManager.LoadScene("SolutionScene"), 2f)

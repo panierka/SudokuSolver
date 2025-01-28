@@ -46,7 +46,7 @@ namespace Assets.Scripts.Controllers
 
         private void FireEvent(SudokuSolutionModel model)
         {
-            Debug.Log(onSolutionReceived.GetPersistentEventCount());
+            Debug.Log("response received");
             onSolutionReceived.Invoke(model);
         }
 
