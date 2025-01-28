@@ -31,7 +31,20 @@ namespace Assets.Scripts.Handlers
             );
         }
 
-        private IEnumerator DelayedCall(Action action, float delay)
+		public void TransitionToError()
+		{
+			Debug.Log("transition to error");
+			CoroutineHost.Instance.StartCoroutine(
+				DelayedCall(() => SceneManager.LoadScene("Error"), 2f)
+			);
+		}
+
+		public void TransitionToMain()
+		{
+			SceneManager.LoadScene("Main");
+		}
+
+		private IEnumerator DelayedCall(Action action, float delay)
         {
             yield return new WaitForSeconds(delay);
             action();
