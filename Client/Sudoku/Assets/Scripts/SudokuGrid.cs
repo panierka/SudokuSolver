@@ -122,9 +122,12 @@ public class SudokuGrid : MonoBehaviour
 				int reversedRow = 8 - row;
 				index = reversedRow * 9 + col;
 				grid_squares_[index].GetComponent<GridSquare>().SetNumber(solutionMatrix[col, row]);
-			}
+                if (solutionMatrix[col, row] == initialMatrix[col, row])
+                {
+                    grid_squares_[index].GetComponent<GridSquare>().ChangeBackground();
+                }
+            }
 		}
-
 		
 		// Testing assigning random numbers
 

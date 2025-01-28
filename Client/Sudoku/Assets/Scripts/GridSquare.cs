@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class GridSquare : MonoBehaviour
 {
-    public GameObject number_text;
+	public GameObject image;
+	public GameObject number_text;
     private int number_ = 0;
+	public Color color = new Color32(125, 125, 125, 255);
 
 	private void Start()
 	{
@@ -31,4 +33,9 @@ public class GridSquare : MonoBehaviour
         number_ = number;
 		DisplayText();
     }
+
+	public void ChangeBackground()
+	{
+		image.GetComponent<Image>().color = color;
+	}
 }
