@@ -13,6 +13,20 @@ namespace Assets.Scripts.Handlers
 {
     public class SceneTransitionHandler : MonoBehaviour
     {
+        public static SceneTransitionHandler Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+
         public void TransitionToAwaiting(Texture2D texture)
         {
             Debug.Log("transition to awaiting");
@@ -37,11 +51,6 @@ namespace Assets.Scripts.Handlers
 			CoroutineHost.Instance.StartCoroutine(
 				DelayedCall(() => SceneManager.LoadScene("Error"), 2f)
 			);
-		}
-
-		public void TransitionToMain()
-		{
-			SceneManager.LoadScene("Main");
 		}
 
 		private IEnumerator DelayedCall(Action action, float delay)
