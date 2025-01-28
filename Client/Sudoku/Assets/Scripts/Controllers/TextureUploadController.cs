@@ -26,6 +26,9 @@ namespace Assets.Scripts.Controllers
         [SerializeField]
         private UnityEvent<Texture2D> onTextureSent;
 
+        [SerializeField]
+        private UnityEvent onError;
+
         public void SendTexture()
         {
             var texture = textureSource.texture;
@@ -38,7 +41,7 @@ namespace Assets.Scripts.Controllers
             var fu = new FileUploader();
             CoroutineHost.Instance.StartCoroutine(fu
                 .SendFileToServer<SudokuSolutionModel>(
-                    pngData, url, FireEvent, err => Debug.LogError(err))
+                    pngData, url, FireEvent, FireErrorEvent)
             );
 
             onTextureSent?.Invoke(texture2D);
@@ -48,6 +51,12 @@ namespace Assets.Scripts.Controllers
         {
             Debug.Log("response received");
             onSolutionReceived.Invoke(model);
+        }
+
+        private void FireErrorEvent(string error)
+        {
+            Debug.LogError(error);
+            onError.Invoke();
         }
 
         private Texture2D Convert(Texture texture)
