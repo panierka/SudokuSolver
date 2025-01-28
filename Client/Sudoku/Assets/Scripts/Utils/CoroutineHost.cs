@@ -16,6 +16,7 @@ namespace Assets.Scripts.Utils
             if (Instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
 
             Instance = this;
