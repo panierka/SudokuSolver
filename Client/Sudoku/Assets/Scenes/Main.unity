@@ -963,7 +963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0112bc407e968b44c844289979bc63eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: http://127.0.0.1:8000/upload-sudoku/
+  url: http://192.168.1.120:8000/upload-sudoku/
   textureSource: {fileID: 1550932972}
   onSolutionReceived:
     m_PersistentCalls:
