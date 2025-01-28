@@ -13,7 +13,7 @@ namespace Assets.Scripts.Utils
 
         private void Awake()
         {
-            if (Instance != null)
+            if (Instance != this)
             {
                 Destroy(gameObject);
             }
