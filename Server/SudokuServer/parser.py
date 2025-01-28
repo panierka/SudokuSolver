@@ -36,7 +36,7 @@ def show(im, max_size=500, title='Show'):
     cv2.destroyAllWindows()
 
 
-def extract_cells(image, cell_size):
+def extract_cells(image, cell_size=50):
     blurred = cv2.GaussianBlur(image, (9, 9), 0)
     thresholded = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2)
     contours, _ = cv2.findContours(thresholded, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -51,10 +51,11 @@ def extract_cells(image, cell_size):
     if pts[3][0] < pts[2][0]:
         pts[2], pts[3] = pts[3], pts[2]
 
-    rect = np.array([pts[0], pts[1], pts[3], pts[2]], dtype='float32')
-    dst = np.array([[0, 0], [450, 0], [450, 450], [0, 450]], dtype='float32')
-
     s = cell_size * 9
+
+    rect = np.array([pts[0], pts[1], pts[3], pts[2]], dtype='float32')
+    dst = np.array([[0, 0], [s, 0], [s, s], [0, s]], dtype='float32')
+
     matrix = cv2.getPerspectiveTransform(rect, dst)
     warped = cv2.warpPerspective(image, matrix, (s, s))
 

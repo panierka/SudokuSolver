@@ -14,6 +14,7 @@ def is_valid(board, row, col, num):
                 return False
     return True
 
+
 def solve_sudoku(board):
     for row in range(9):
         for col in range(9):
