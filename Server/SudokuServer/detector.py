@@ -1,5 +1,5 @@
 import random
-from SudokuRecognizer.sent_digits_recognizer import main
+from sent_digits_recognizer import main
 #lista obrazów nie lepsza żeby tylko raz wczytać model?
 def detect_digit(im):
     # tutaj powinien być użyty model
