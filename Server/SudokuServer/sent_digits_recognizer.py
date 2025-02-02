@@ -7,9 +7,8 @@ import cv2
 from tensorflow import keras
 
 
-with open('knn_mnist_model.pkl', 'rb') as file:
-    model_mnist = pickle.load(file)
 
+model_mnist = keras.models.load_model('lenet5_mnist.h5')
 
 
 def preprocess_testing_data(img):

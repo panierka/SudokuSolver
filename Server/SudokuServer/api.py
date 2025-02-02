@@ -50,8 +50,10 @@ async def upload_sudoku(file: UploadFile = File(...)):
 
         initial = [InnerListModel(data=list(row)) for row in matrix]
         solution = solver.solve_sudoku(matrix)
-
-        solved = [InnerListModel(data=row) for row in solution]
+        if solution:
+            solved = [InnerListModel(data=row) for row in solution]
+        else:
+            solved = initial
 
         response = SudokuSolutionModel(
             initialBoardState=initial,
