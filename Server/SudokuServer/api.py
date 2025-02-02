@@ -37,8 +37,14 @@ async def upload_sudoku(file: UploadFile = File(...)):
         cells = parser.extract_cells(image, 50)
         dim = int(math.sqrt(len(cells)))
 
+        def classify(cell):
+            if parser.detect_empty(cell):
+                return 0
+            else:
+                return detector.detect_digit(cell)
+
         matrix = [
-            [detector.detect_digit(cell) for cell in cells[i * dim:(i + 1) * dim]]
+            [classify(cell) for cell in cells[i * dim:(i + 1) * dim]]
             for i in range(dim)
         ]
 

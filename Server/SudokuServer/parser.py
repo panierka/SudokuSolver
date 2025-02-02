@@ -6,10 +6,6 @@ def main():
     url = 'data/sample1.png'
     im = cv2.imread(url, cv2.IMREAD_GRAYSCALE)
     cells = extract_cells(im, 50)
-    # show_cells(cells, 50, 10)
-
-    for i, cell in enumerate(cells):
-        cv2.imwrite(f'output/Cell {i}.png', cell)
 
 
 def show(im, max_size=500, title='Show'):
@@ -77,6 +73,32 @@ def show_cells(cells, cell_size, gap):
 
         arr[ry:ry+cell_size, rx:rx+cell_size] = cell
     show(arr)
+
+
+def detect_empty(cell):
+    def is_centered(binary_image, k):
+        M = cv2.moments(binary_image)
+        if M["m00"] == 0:
+            return False
+        cx, cy = int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"])
+        h, w = binary_image.shape
+        center_x, center_y = w // 2, h // 2
+        threshold = min(w, h) * k
+        return abs(cx - center_x) < threshold and abs(cy - center_y) < threshold
+
+    n = 8
+    blurred = cv2.GaussianBlur(cell, (19, 19), 0)
+    binarized = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2)
+    trimmed = binarized[n:50 - n, n:50 - n]
+
+    if not is_centered(trimmed, 0.225):
+        return True
+
+    m = trimmed / 255
+    if m.sum() / (50 - 2 * n) ** 2 < 0.15:
+        return True
+
+    return False
 
 
 if __name__ == '__main__':
