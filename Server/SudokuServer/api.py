@@ -10,7 +10,7 @@ from typing import List
 import json
 
 import detector
-import parser
+import file_parser
 import solver
 
 app = FastAPI(debug=True)
@@ -34,11 +34,11 @@ async def upload_sudoku(file: UploadFile = File(...)):
         np_arr = np.frombuffer(contents, np.uint8)
         image = cv2.imdecode(np_arr, cv2.IMREAD_GRAYSCALE)
 
-        cells = parser.extract_cells(image, 50)
+        cells = file_parser.extract_cells(image, 50)
         dim = int(math.sqrt(len(cells)))
 
         def classify(cell):
-            if parser.detect_empty(cell):
+            if file_parser.detect_empty(cell):
                 return 0
             else:
                 return detector.detect_digit(cell)

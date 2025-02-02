@@ -11,9 +11,9 @@ import cv2
 def get_data():
     mnist = fetch_openml('mnist_784', version=1)
     X, y = mnist['data'], mnist['target'].astype(int)
-    mask = y != 0
-    X = X[mask]
-    y = y[mask]
+    #mask = y != 0
+    #X = X[mask]
+    #y = y[mask]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     return X_train, X_test, y_train, y_test
 
@@ -40,9 +40,9 @@ def get_data_from_board(dir):
         image = cv2.resize(image, (28, 28))
         if len(image.shape) == 3:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        blurred = cv2.GaussianBlur(image, (5, 5), 0)
+        blurred = cv2.GaussianBlur(image, (15, 15), 0)
         image = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
-        #cv2.imwrite(dir + "/tests/" + path, image)
+        cv2.imwrite("data/tests/" + path, image)
         image_array = np.array(image).reshape(1, 784).reshape(-1)
         normalized_array = image_array / 255.0
         binary_array = (normalized_array > 0.5).astype(int)
@@ -71,14 +71,14 @@ def save_model(model, path):
         pickle.dump(model, file)
 
 def main():
-    X_train_bin, y_train_bin = get_data_from_board('data/train_data')
-    model_bin = knn_model(3)
-    model_bin = train_model(model_bin, X_train_bin, y_train_bin)
-    save_model(model_bin, 'knn_binary_model.pkl')
+    #X_train_bin, y_train_bin = get_data_from_board('data/training_data_cells')
+    #model_bin = knn_model(3)
+    #model_bin = train_model(model_bin, X_train_bin, y_train_bin)
+    #save_model(model_bin, 'knn_binary_model.pkl')
     X_train, X_test, y_train, y_test = get_data()
     model_mnist = knn_model(3)
     model_mnist = train_model(model_mnist, X_train, y_train)
-    save_model(model_mnist, 'knn_mnist_model.pkl')
+    #save_model(model_mnist, 'knn_mnist_model.pkl')
     '''
     X_train_aug, y_train_aug = get_data_from_board('data/train_data')
     X_test_aug, y_test_aug = get_and_transform_augmented_data('data/augmented_test_data')
