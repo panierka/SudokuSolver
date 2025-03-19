@@ -1,5 +1,5 @@
 # SudokuSolver
-The main task of Machine Learning Applications in human-machine interaction systems course on second semester (MSc) at Silesian University of Technology was to create application that lets the users get solved sudoku system automatically using their mobile phone.
+The main task of Machine Learning Applications in Human-Machine Interaction Systems course on second semester (MSc) at Silesian University of Technology was to create application that lets the users get solved sudoku system automatically using their mobile phone.
 
 Our team succesfully delivered mobile application which is able to:
 - take the photo of paper sudoku board,
